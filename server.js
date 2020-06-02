@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 const _port = process.env.PORT || 5000;
 const _app_folder = __dirname   ;
 app.use(express.static(__dirname  ));
-
+var table_name="trees";
 app.get("/api/data",function(req,res)
 {
  pool.query("SELECT jsonb_build_object('type','FeatureCollection','features', jsonb_agg(feature)) FROM (SELECT jsonb_build_object('type','Feature','geometry',ST_AsGeoJSON(geom)::jsonb, 'properties', to_jsonb(row) - 'gid' - 'geom')AS feature FROM (SELECT * FROM "+table_name+") row) features;", (err1, res1)=>
