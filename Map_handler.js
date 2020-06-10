@@ -5,10 +5,10 @@ var baseMapLayer = new ol.layer.Tile({
 var layer = new ol.layer.Tile({
 source: new ol.source.OSM()
 });
-var center = ol.proj.fromLonLat([32, 39]);
+var center = ol.proj.fromLonLat([29.1, 36.6]);
 var view = new ol.View({
 center: center,
-zoom: 10
+zoom: 12
 });
 var map = new ol.Map({
   target: 'map',
