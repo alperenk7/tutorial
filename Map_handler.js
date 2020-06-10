@@ -21,8 +21,8 @@ var vectorSource = new ol.source.Vector({
       format: new ol.format.GeoJSON({ featureProjection: "EPSG:4326" })  
 });
 
-var stroke = new ol.style.Stroke({color: 'black', width: 2});
-var fill = new ol.style.Fill({color: 'red'});
+var stroke = new ol.style.Stroke({color: 'black', width: 1});
+var fill = new ol.style.Fill({color: 'green'});
 
 var markerVectorLayer = new ol.layer.Vector({
   source: vectorSource,
