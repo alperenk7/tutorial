@@ -18,7 +18,7 @@ app.get("/api/data",function(req,res)
         });
 });
 app.post('/post', function(request, response){
-    pool.query("INSERT INTO "+table_name+" VALUES('"+request.body.tree_type+"',ST_SETSRID(ST_MAKEPOINT("+request.body.Longitude+","+request.body.Latitude+"),4326));", (err1, res1) =>
+    pool.query("INSERT INTO "+table_name+" VALUES('"+request.body.tree_type+"',ST_SETSRID(ST_MAKEPOINT("+request.body.Longitude+","+request.body.Latitude+"),4326),'"+request.body.tree_height+"', '"+request.body.tree_age+"');", (err1, res1) =>
         {
             if(err1)
             { console.log(request.body);
@@ -35,4 +35,3 @@ app.all('*', function (req, res) {
 app.listen(_port, function () {
     console.log("Node Express server for " + app.name + " listening on http://localhost:" + _port);
 });
-        
