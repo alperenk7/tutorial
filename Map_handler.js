@@ -16,27 +16,64 @@ var map = new ol.Map({
   layers: [layer]
 });
 
-var vectorSource = new ol.source.Vector({
-      url:"/api/data",
-      format: new ol.format.GeoJSON({ featureProjection: "EPSG:4326" })  
+var styles = [];
+
+styles['Çam'] = new ol.style.Style({
+  image: new ol.style.Icon({
+          anchor: [1, 1],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          scale: 0.1,
+    src: '/images/çam.jpg'
+  })
 });
 
-var stroke = new ol.style.Stroke({color: 'black', width: 1});
-var fill = new ol.style.Fill({color: 'green'});
+
+styles['Kavak'] = new ol.style.Style({
+  image: new ol.style.Icon({
+      anchor: [1, 1],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          scale: 0.2,
+    src: '/images/kavak.jpg'
+  })
+});
+
+styles['Default'] = new ol.style.Style({
+  image: new ol.style.Icon({
+      anchor: [1, 1],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'fraction',
+          scale: 1.0,
+    src: '/images/alpy.jpg'
+  })
+});
+
+
+var vectorSource = new ol.source.Vector({
+        url:"/api/data",
+        format: new ol.format.GeoJSON({ featureProjection: "EPSG:4326" })  
+});
 
 var markerVectorLayer = new ol.layer.Vector({
-  source: vectorSource,
-  style: new ol.style.Style({
-      image: new ol.style.RegularShape({
-        fill: fill,
-        stroke: stroke,
-        points: 4,
-        radius: 10,
-        angle: Math.PI / 4
-      })
-    })
+    source: vectorSource,
+    style: function(feature, resolution){
+            var type = feature.getProperties().tree_type;
+
+            if(type == 'Çam'){
+              return styles['Çam'];
+            }else if(type == 'Kavak'){
+              return styles['Kavak'];
+            
+            }else{
+              return styles['Default'];
+            }
+        }
 
 });
+
+
+
 
 map.addLayer(markerVectorLayer);
 var select = new ol.interaction.Select({multiple:false});
